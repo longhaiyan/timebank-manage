@@ -1,149 +1,131 @@
 /**
  * Created by longhaiyan on 17/3/26.
  */
-import Hello from '@/components/Hello'
-import Index from '@/views/index/index'
-import Intro from '@/views/intro'
-import Complain from '@/views/complain'
-import demo from '@/components/demoView/demo'
-import Task from '@/views/task/my_task'
-import Zone from '@/views/zone'
+/*import Hello from '@/components/Hello'
+ import Index from '@/views/index/index'
+ import Intro from '@/views/intro'
+ import Complain from '@/views/complain'
+ import demo from '@/components/demoView/demo'
+ import Task from '@/views/task/my_task'
+ import Zone from '@/views/zone'*/
 
-import MessageIndex from '@/views/message/message_index'
-import MessagePersonal from '@/views/message/message_personal'
-import MessageSystem from '@/views/message/message_system'
+import UserDispute from '@/views/dispute/user_dispute'
 
-import SettingIndex from '@/views/setting/setting_index'
-import SettingInfo from '@/views/setting/setting_info'
-import SettingGetTask from '@/views/setting/setting_get_task'
-import SettingPrivate from '@/views/setting/setting_private'
-import SettingPublishTask from '@/views/setting/setting_publish_task'
-import SettingCommunity from '@/views/setting/setting_community'
-import SettingConfirm from '@/views/setting/setting_confirm'
+import SystemMessage from '@/views/message/system_message'
 
-import NewTask from '@/views/task/new_task'
-import CommunityIndex from '@/views/community/community_index'
-import CommunityInfo from '@/views/community/community_info'
+import SysIndex from '@/views/sys/index'
+import Ad from '@/views/sys/ad'
+import FriendLink from '@/views/sys/friend_link'
+import Swiper from '@/views/sys/swiper'
+
+import TaskIndex from '@/views/task/index'
+import RecommendTask from '@/views/task/recommend_task'
+import ReportTask from '@/views/task/report_task'
+import WatchTask from '@/views/task/watch_task'
+
+import TopicIndex from '@/views/topic/index'
+import RecommendTopic from '@/views/topic/recommend_topic'
+import ReportTopic from '@/views/topic/report_topic'
+import WatchTopic from '@/views/topic/watch_topic'
+
+import UserIndex from '@/views/user/index'
+import Account from '@/views/user/account'
+import User from '@/views/user/user'
+
 // import NewTask from '@/views/task/new_task'
 
-import index from '@/views/index/index'
 import store from '@/store'
 import routerQuery from './routerQuery'
 import * as demoTypes from '@/store/test/types'
 
 let routes = [
   {
-    label: '首页',
-    path: '/',
-    name: 'Index',
-    component: Index,
-  },
-  {
-    path: '/Hello',
-    name: 'Hello',
-    component: Hello,
+    path: '/user',
+    name: 'userIndex',
+    component: UserIndex,
     children: [
       {
-        path: 'demo',
-        component: demo,
-      }
+        path: 'list',
+        component: User,
+      },
+      {
+        path: 'account',
+        component: Account,
+      },
     ],
   },
   {
-    label: '任务详情',
-    path: '/intro',
-    name: 'Intro',
-    component: Intro
+    path: '/topic',
+    name: 'topicIndex',
+    component: TopicIndex,
+    children: [
+      {
+        path: 'recommend',
+        component: RecommendTopic,
+      },
+      {
+        path: 'report',
+        component: ReportTopic,
+      },
+      {
+        path: 'watch',
+        component: WatchTopic,
+      },
+
+    ],
   },
   {
     path: '/task',
-    name: 'Task',
-    component: Task,
+    name: 'taskIndex',
+    component: TaskIndex,
     children: [
       {
-        path: 'new',
-        component: NewTask,
+        path: 'recommend',
+        component: RecommendTask,
+      },
+      {
+        path: 'report',
+        component: ReportTask,
+      },
+      {
+        path: 'watch',
+        component: WatchTopic,
+      },
+    ],
+  },
+  {
+    path: '/sys',
+    name: 'sysIndex',
+    component: SysIndex,
+    children: [
+      {
+        path: 'ad',
+        component: Ad,
+      },
+      {
+        path: 'friend',
+        component: FriendLink,
+      },
+      {
+        path: 'swiper',
+        component: Swiper,
       }
     ],
   },
   {
-    label: '社区首页',
-    path: '/community',
-    name: 'CommunityIndex',
-    component: CommunityIndex
-  },
-  {
-    label: '帖子详情',
-    path: '/info',
-    name: 'CommunityInfo',
-    component: CommunityInfo
-  },
-  {
-    label: '投诉',
-    path: '/complain',
-    name: 'Complain',
-    component: Complain
-  },
-  {
-    label: '个人首页',
-    path: '/zone',
-    name: 'Zone',
-    component: Zone
-  },
-  {
-    label: '我的消息',
     path: '/message',
-    name: 'MessageIndex',
-    component: MessageIndex,
-    children: [
-      {
-        path: 'personal',
-        component: MessagePersonal,
-      },
-      {
-        path: 'system',
-        component: MessageSystem,
-      },
-
-    ],
+    name: 'message',
+    component: SystemMessage,
   },
   {
-    label: '我的设置',
-    path: '/setting',
-    name: 'SettingIndex',
-    component: SettingIndex,
-    children: [
-      {
-        path: 'info',
-        component: SettingInfo,
-      },
-      {
-        path: 'get_task',
-        component: SettingGetTask,
-      },
-      {
-        path: 'publish_task',
-        component: SettingPublishTask,
-      },
-      {
-        path: 'private',
-        component: SettingPrivate,
-      },
-      {
-        path: 'community',
-        component: SettingCommunity,
-      },
-      {
-        path: 'confirm',
-        component: SettingConfirm,
-      },
-
-    ],
+    path: '/dispute',
+    name: 'dispute',
+    component: UserDispute,
   },
 
 ]
 
-function routesConfig(store) {
+function routesConfig (store) {
   // main-start
 
   // 为面包屑导航补全路由，存放在_path

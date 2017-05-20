@@ -18,18 +18,19 @@ Vue.use(pluginsGm)
 // Vue.use(router)
 /* eslint-disable no-new */
 
-Vue.filter('data', function(value) {
-    function add(m) {
-        return m < 10 ? '0' + m : m
-    }
-    let time = new Date(parseInt(value))
-    let y = time.getFullYear()
-    let m = time.getMonth() + 1
-    let d = time.getDate()
-    let hh = time.getHours()
-    let mm = time.getMinutes()
+Vue.filter('data', function (value) {
+  function add (m) {
+    return m < 10 ? '0' + m : m
+  }
 
-    return y + '-' + add(m) + '-' + add(d) + '  ' + add(hh) + ':'+add(mm)
+  let time = new Date(parseInt(value))
+  let y = time.getFullYear()
+  let m = time.getMonth() + 1
+  let d = time.getDate()
+  let hh = time.getHours()
+  let mm = time.getMinutes()
+
+  return y + '-' + add(m) + '-' + add(d) + '  ' + add(hh) + ':' + add(mm)
 })
 
 new Vue({
@@ -37,5 +38,5 @@ new Vue({
   router: routerInit(store),
   store,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })
