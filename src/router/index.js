@@ -1,10 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import demo from '@/components/demoView/demo'
-import store from '@/store'
-import routerQuery from './routerQuery'
-import * as demoTypes from '@/store/test/types'
 
 import { routesConfig } from './routesConfig'
 import routerBefore from './routerBefore'

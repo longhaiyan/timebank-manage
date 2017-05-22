@@ -36,7 +36,6 @@ import User from '@/views/user/user'
 
 import store from '@/store'
 import routerQuery from './routerQuery'
-import * as demoTypes from '@/store/test/types'
 
 let routes = [
   {

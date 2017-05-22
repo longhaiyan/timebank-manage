@@ -14,12 +14,12 @@
                     </el-form-item>
                 </el-form>
                 <el-table
-                        :data="tableData"
+                        :data="taskList"
                         style="width: 100%">
                     <el-table-column type="expand">
                         <template scope="props">
                             <div v-if="props.row.userType !== 0" label-position="left" inline
-                                     class="demo-table-expand">
+                                 class="demo-table-expand">
                                 <template v-if="props.row.userType === 1 || props.row.userType === 3">
                                     <p>学号：<span>{{ props.row.student.sno }}</span></p>
                                     <p>学院：<span>{{ props.row.student.dept }}</span></p>
@@ -88,7 +88,9 @@
                     <el-table-column label="操作" align="center">
                         <template scope="props">
                             <el-button type="text">查看</el-button>
-                            <el-button v-if="props.row.userType == 3 || props.row.userType == 4 " type="text">认证
+                            <el-button v-if="props.row.userType == 3 || props.row.userType == 4 " type="text"
+                                       @click.stop="onAuth(props.row)">认证
+
                             </el-button>
                             <el-button type="text">冻结</el-button>
                             <el-button type="text">关闭</el-button>
@@ -99,11 +101,27 @@
 
 
                 </el-table>
+                <el-dialog title="新增推荐任务" v-model="formVisible">
+                    <el-form :model="authForm" :inline="true">
+                        <el-form-item label="处理结果">
+                            <el-select v-model="authForm.auth" placeholder="请选择处理结果">
+                                <el-option label="不通过" value="0"></el-option>
+                                <el-option label="通过" value="1"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="formVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="onSubmit">确 定</el-button>
+                    </div>
+                </el-dialog>
             </div>
         </wrap>
     </div>
 </template>
 <script>
+  import {mapActions, mapState} from  'vuex'
+  import * as UserType from '@/store/user/types'
   import Wrap from '@/components/wrap'
   export default{
     name: 'User',
@@ -113,6 +131,11 @@
           userId: this.$route.query.userId || '',
           userName: this.$route.query.userName || ''
         },
+        formVisible:false,
+        authForm: {
+          auth:''
+        },
+        myUserId:null,
         tableData: [{
           "userId": 1,
           "userName": "timebank",
@@ -205,7 +228,17 @@
         ]
       }
     },
+    computed:{
+      ...mapState({
+        taskList:store=>store.user.taskList,
+        authStep:store=>store.user.authStep,
+        authError:store=>store.user.authError,
+      })
+    },
     methods: {
+      ...mapActions({
+        userUpdate:UserType.A_USER_UPDATE,
+      }),
       onSearch(){
         let userId = this.formData.userId,
           userName = this.formData.userName
@@ -238,6 +271,31 @@
             return '认证失败'
           default:
             return '未知'
+        }
+      },
+      onAuth(row){
+        this.formVisible = true
+        console.log("aa",row)
+        this.myUserId = row.userId
+        console.log("this.myUserId",this.myUserId)
+      },
+      onSubmit(){
+        let self = this
+        if(parseInt(this.authForm.auth) === 0 || parseInt(this.authForm.auth) === 1){
+          this.userUpdate({userId:self.myUserId,auth:parseInt(self.authForm.auth)}).then(()=>{
+            self.formVisible = false
+            if(self.authStep !== 'error'){
+              if(parseInt(this.authForm.auth) === 0){
+                self.$message.success("操作成功，认证不通过")
+              }else{
+                self.$message.success("操作成功，认证通过")
+              }
+            }else{
+              self.$message.error(self.authError)
+            }
+          })
+        }else{
+          self.$message.info("请选择处理结果")
         }
       }
     },

@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "userId": 3,
+      "userName": "haiyan",
+      "avatarId": 0,
+      "cellphone": "",
+      "sex": 0,
+      "userType": 3,
+      "description": "",
+      "email": "haiyan@bank.cn",
+      "birthday": "1970-01-01 00:00:00",
+      "student": {
+        "id": 2,
+        "createTime": "2017-05-22 21:45:33",
+        "modifyTime": "2017-05-22 21:45:33",
+        "sno": 345435,
+        "name": "海燕",
+        "dept": "FFDFDS",
+        "major": "5435425435",
+        "remark": ""
+      },
+      "teacher": null,
+      "pics": [
+        6
+      ]
+    }
+  ]
+}
