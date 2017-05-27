@@ -238,6 +238,8 @@
     methods: {
       ...mapActions({
         userUpdate:UserType.A_USER_UPDATE,
+        userListStart:UserType.A_USER_LIST_START,
+
       }),
       onSearch(){
         let userId = this.formData.userId,
@@ -286,6 +288,7 @@
             self.formVisible = false
             if(self.authStep !== 'error'){
               if(parseInt(this.authForm.auth) === 0){
+                self.userListStart()
                 self.$message.success("操作成功，认证不通过")
               }else{
                 self.$message.success("操作成功，认证通过")

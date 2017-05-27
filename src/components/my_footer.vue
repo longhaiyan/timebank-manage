@@ -16,7 +16,10 @@
         color: #fff;
         font-size: 15px;
         padding: 50px 0 20px 0;
-        position: relative;
+        position: absolute;
         z-index: 1;
+        bottom: 0;
+        left: 0;
+        width: 100%;
     }
 </style>

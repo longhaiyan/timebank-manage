@@ -45,6 +45,9 @@
                         <el-form-item label="置顶帖子ID" >
                             <el-input v-model="recommendForm.topicId"></el-input>
                         </el-form-item>
+                        <el-form-item label="位置" >
+                            <el-input v-model="recommendForm.topicId"></el-input>
+                        </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="recommendFormVisible = false">取 消</el-button>

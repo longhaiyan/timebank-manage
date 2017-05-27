@@ -32,12 +32,26 @@ import UserIndex from '@/views/user/index'
 import Account from '@/views/user/account'
 import User from '@/views/user/user'
 
+import Credit from '@/views/credit/credit'
+
+import Welcome from '@/views/welcome'
+
 // import NewTask from '@/views/task/new_task'
 
 import store from '@/store'
 import routerQuery from './routerQuery'
 
 let routes = [
+  {
+    path: '/',
+    name: 'welcome',
+    component: Welcome,
+  },
+  {
+    path: '/credit',
+    name: 'credit',
+    component: Credit,
+  },
   {
     path: '/user',
     name: 'userIndex',
@@ -88,7 +102,7 @@ let routes = [
       },
       {
         path: 'watch',
-        component: WatchTopic,
+        component: WatchTask,
       },
     ],
   },

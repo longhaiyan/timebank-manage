@@ -1,7 +1,7 @@
 <template>
     <div>
         <wrap title="任务监督">
-            <div slot="content"></div>
+            <div slot="content">任务监督</div>
         </wrap>
 
     </div>

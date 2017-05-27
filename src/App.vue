@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-        <el-row>
-            <el-col :sm="4" style="background: #99a9bf;">
+        <el-row style="height: 100%;">
+            <el-col :sm="4" style="background: rgb(50, 65, 87);height: 100%;">
                 <el-menu :router="true" :unique-opened=true default-active="2" class="el-menu-vertical-demo"
                          theme="dark">
                     <el-submenu index="user">
@@ -28,11 +28,16 @@
                         <el-menu-item index="/sys/ad">广告区</el-menu-item>
                     </el-submenu>
                     <el-menu-item index="/dispute">纠纷管理</el-menu-item>
+                    <el-menu-item index="/credit">信用管理</el-menu-item>
                     <el-menu-item index="/message">系统通知管理</el-menu-item>
-
                 </el-menu>
             </el-col>
             <el-col :sm="20">
+                <div style="text-align: right;margin-right: 30px;" v-if="userName">
+                    <i class="el-icon-setting"></i>
+                    <span class="sys-name">{{userName}}您好！</span>
+                    <el-button type="text" @click="onLoyout">退出</el-button>
+                </div>
                 <router-view></router-view>
             </el-col>
         </el-row>
@@ -46,10 +51,32 @@
   export default {
     name: 'app',
     data(){
-      return {}
+      return {
+        userName:'管理员-龙海燕'
+      }
     },
     computed: {},
-    methods: {},
+    methods: {
+      onLoyout(){
+        let self = this
+        this.$confirm('您要退出系统么?', '提示', {
+          confirmButtonText: '是的',
+          cancelButtonText: '不，我只是点错了',
+          type: 'warning'
+        }).then(() => {
+          self.userName = ''
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消退出'
+          });
+        });
+      }
+    },
     mounted() {
     },
     components: {
@@ -67,6 +94,6 @@
         /*text-align: center;*/
         color: #2c3e50;
         /*background: #abcabc;*/
-        /*height: 100%;*/
+        height: 100%;
     }
 </style>
