@@ -9,7 +9,7 @@
             <div slot="content">
                 <el-form :inline="true">
                     <el-form-item>
-                        <el-input class="search-btn" v-model="formData.userName" placeholder="用户昵称、邮箱或手机号"></el-input>
+                        <el-input class="search-btn" v-model="formData.name" placeholder="用户昵称、邮箱或手机号"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSearch">搜索</el-button>
@@ -19,7 +19,6 @@
                 <template v-if="searchTableVisible">
                     <p>搜索结果</p>
                     <el-table
-
                             :data="searchList"
                             style="width: 100%">
                         <!--<el-table-column type="expand">
@@ -98,7 +97,7 @@
 
                                 </el-button>-->
                                 <el-button type="text">冻结</el-button>
-                                <el-button type="text">关闭</el-button>
+                                <el-button type="text" @click.stop="onManageCount(props.row)">管理账户</el-button>
                                 <el-button type="text">修改个人信息</el-button>
 
                             </template>
@@ -107,6 +106,7 @@
                 </template>
                 <p>用户列表</p>
                 <el-table
+                        height="350"
                         :data="userList"
                         style="width: 100%">
                     <el-table-column type="expand">
@@ -163,7 +163,7 @@
                             >
                     </el-table-column>-->
                     <el-table-column
-                            width="120"
+                            width="200"
                             align="center"
                             prop="email"
                             label="邮箱"
@@ -184,7 +184,7 @@
                                        @click.stop="onAuth(props.row)">认证
                             </el-button>-->
                             <el-button type="text">冻结</el-button>
-                            <el-button type="text">关闭</el-button>
+                            <el-button type="text" @click.stop="onManageCount(props.row)">管理账户</el-button>
                             <el-button type="text">修改个人信息</el-button>
 
                         </template>
@@ -220,7 +220,7 @@
       return {
         formData: {
           userId: this.$route.query.userId || '',
-          userName: this.$route.query.userName || ''
+          name: this.$route.query.name || ''
         },
         formVisible:false,
         authForm: {
@@ -340,18 +340,18 @@
 
       }),
       onSearch(){
-        let userName = this.formData.userName
+        let name = this.formData.name
         let self = this
 
         let query = {
-          userName
+          name
         }
 
-        if (userName) {
+        if (name) {
           this.GM_routerPush({
             query
           })
-          this.userSearch({name:userName}).then(()=>{
+          this.userSearch({name:name}).then(()=>{
             if(self.searchStep === 'error'){
               self.$message.error(self.searchError)
             }else{
@@ -365,7 +365,7 @@
         }
       },
       onClear(){
-        this.formData.userName = ''
+        this.formData.name = ''
         this.GM_routerPush({})
         this.searchTableVisible = false
 
@@ -393,6 +393,14 @@
         console.log("aa",row)
         this.myUserId = row.userId
         console.log("this.myUserId",this.myUserId)
+      },
+      onManageCount(row){
+        this.GM_routerPush({
+          path: '/user/account',
+          query: {
+            userId: row.userId
+          }
+        })
       },
       onSubmit(){
         let self = this

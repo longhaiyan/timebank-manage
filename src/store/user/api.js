@@ -10,7 +10,7 @@ const api = {
   },
   pro: {
     'updateAuth':'/admin/user/auth/update/data',
-    'userList':'',
+    'userList':'/admin/user/info/list/data',
     'userConfirm':'/admin/user/auth/list/data',
     'search':'/admin/pay/user/info/data'
   }

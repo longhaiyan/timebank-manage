@@ -6,7 +6,7 @@
                          theme="dark">
                     <el-submenu index="user">
                         <template slot="title">用户信息管理</template>
-                        <el-menu-item index="/user/list">账号管理</el-menu-item>
+                        <el-menu-item index="/user/list">用户管理</el-menu-item>
                         <el-menu-item index="/user/confirm">实名认证</el-menu-item>
                         <el-menu-item index="/user/account">账户管理</el-menu-item>
                     </el-submenu>
@@ -33,7 +33,7 @@
                     <el-menu-item index="/message">系统通知管理</el-menu-item>
                 </el-menu>
             </el-col>
-            <el-col :sm="20">
+            <el-col :sm="20" style="overflow-y: scroll;">
                 <div style="text-align: right;margin-right: 30px;" v-if="userName">
                     <i class="el-icon-setting"></i>
                     <span class="sys-name">{{userName}}您好！</span>

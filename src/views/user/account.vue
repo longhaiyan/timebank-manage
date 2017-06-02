@@ -6,14 +6,15 @@
                     <el-tab-pane>
                         <span slot="label"><i class="el-icon-date"></i> 时间币充值</span>
                         <!--<div style="width: 500px;">-->
-                            <el-form ref="form" :model="rechargeForm" label-width="130px">
-                                <el-form-item label="充值账号ID">
+                            <el-form ref="rechargeForm" :model="rechargeForm" :rules="rechargeFormRules" label-width="130px">
+                                <el-form-item label="充值账号ID" prop="userId">
                                     <el-input v-model="rechargeForm.userId"></el-input>
                                 </el-form-item>
-                                <el-form-item label="充值时间币个数">
-                                    <el-input v-model="rechargeForm.count"></el-input>
+                                <el-form-item label="充值时间币个数" prop="count">
+                                    <el-input-number v-model="rechargeForm.count"></el-input-number>
+
                                 </el-form-item>
-                                <el-form-item label="充值原因">
+                                <el-form-item label="充值原因" prop="result">
                                     <el-input v-model="rechargeForm.result"></el-input>
                                 </el-form-item>
 
@@ -25,14 +26,14 @@
 
                             </el-form>
                             <div style="text-align: center;">
-                                <el-button type="primary">确认充值</el-button>
+                                <el-button type="primary" @click.stop="onCharge">确认充值</el-button>
                             </div>
                         <!--</div>-->
                     </el-tab-pane>
 
                     <el-tab-pane>
                         <span slot="label"><i class="el-icon-date"></i> 扣除时间币</span>
-                        <el-form ref="form" :model="deductForm" label-width="130px">
+                        <el-form ref="deductForm" :model="deductForm" label-width="130px">
                             <el-form-item label="账号ID">
                                 <el-input v-model="deductForm.userId"></el-input>
                             </el-form-item>
@@ -105,21 +106,37 @@
 </template>
 <script>
   import Wrap from '@/components/wrap'
+  import {mapActions,mapState} from  'vuex'
+  import * as AccountType from  '@/store/account/types'
   export default{
     name: 'Account',
     data(){
       return {
+        rechargeFormRules:{
+          userId: {
+            required: true,
+            validator: this.checkUserId,
+            trigger: 'blur'
+          },
+          count: {
+            required: true,
+            validator: this.checkMoney,
+            trigger: 'blur,change'
+          },
+          result: {required: true, message: '请输入用充值原因', trigger: 'blur'},
+
+        },
         rechargeForm:{
-          userId:'',
-          count:'',
+          userId: this.$route.query.userId || '',
+          count:'1',
           result:'',
           message:'亲爱的XXX 用户，你的账户已成功充值 XX 个时间币，请查收，' +
           '如有疑问，请拨打热线电话：13505618325，谢谢!充值时间币个数：',
           check:''
         },
         deductForm:{
-          userId:'',
-          count:'',
+          userId: this.$route.query.userId || '',
+          count:'1',
           result:'',
           message:'亲爱的XXX 用户，由于您的违规行为，本系统将扣除 XX 个时间币，' +
           '作为惩罚。如有疑问，请拨打热线电话：13505618325，谢谢。',
@@ -157,7 +174,19 @@
         ]
       }
     },
+    computed:{
+      ...mapState({
+        chargeStep:state => state.account.chargeStep,
+        chargeError:state => state.account.chargeError,
+        deductStep:state => state.account.deductStep,
+        deductError:state => state.account.deductError,
+      })
+    },
     methods:{
+      ...mapActions({
+        chargeMoney:AccountType.A_CHARGE_MONEY,
+        deductMoney:AccountType.A_DEDUCT_MONEY,
+      }),
       formatStatus(row) {
         switch (row.status) {
           case 0:
@@ -177,6 +206,41 @@
           default:
             return '未知'
         }
+      },
+      onCharge(){
+        let self = this
+        self.$refs.rechargeForm.validate(value => {
+          if(value && self.rechargeForm.check){
+            console.log("充值")
+            this.chargeMoney({
+              userId:parseInt(self.rechargeForm.userId),
+              money:parseInt(self.rechargeForm.count),
+              remark:self.rechargeForm.result,
+            }).then(()=>{
+              if(self.chargeStep === 'error'){
+                self.$message.error(self.chargeError)
+              }else {
+                self.$message.success('充值成功')
+              }
+            })
+          }else{
+            self.$message.warning('请确认信息')
+            console.log("不符合充值条件")
+          }
+        })
+      },
+      checkMoney(rule, value, callback){
+        if (parseInt(value) < 1) {
+          return callback(new Error('请输入大于1的整数'))
+        }
+        return callback()
+      },
+      checkUserId(rule, value, callback){
+        console.log("ffd",parseInt(value))
+        if (!Number.isInteger(parseInt(value)) || parseInt(value) < 1) {
+          return callback(new Error('请输入正确的ID'))
+        }
+        return callback()
       },
 
     },
