@@ -7,107 +7,16 @@
     <div>
         <wrap title="用户管理">
             <div slot="content">
-                <el-form :inline="true">
+                <!--<el-form :inline="true">
                     <el-form-item>
                         <el-input class="search-btn" v-model="formData.userName" placeholder="用户昵称、邮箱或手机号"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSearch">搜索</el-button>
-                        <el-button type="primary" @click="onClear">清除搜索结果</el-button>
                     </el-form-item>
-                </el-form>
-                <template v-if="searchTableVisible">
-                    <p>搜索结果</p>
-                    <el-table
-
-                            :data="searchList"
-                            style="width: 100%">
-                        <!--<el-table-column type="expand">
-                            <template scope="props">
-                                <div v-if="props.row.userType !== 0" label-position="left" inline
-                                     class="demo-table-expand">
-                                    <template v-if="props.row.userType === 1 || props.row.userType === 3">
-                                        <p>学号：<span>{{ props.row.student.sno }}</span></p>
-                                        <p>学院：<span>{{ props.row.student.dept }}</span></p>
-                                        <p>班级：<span>{{ props.row.student.major }}</span></p>
-                                    </template>
-                                    <template v-else>
-                                        <p>教师号： <span>{{ props.row.teacher.sno }}</span></p>
-                                        <p>职务：<span>{{ props.row.teacher.dept }}</span></p>
-                                    </template>
-                                </div>
-                                <div v-else>无信息</div>
-                            </template>
-                        </el-table-column>-->
-                        <el-table-column
-                                align="center"
-                                prop="userId"
-                                label="用户ID"
-                                width="100"
-                        >
-                        </el-table-column>
-                        <!--<el-table-column
-                                v-if="student.name"
-                                align="center"
-                                prop="student.name"
-                                label="真实姓名"
-                                width="100"
-                        >
-                        </el-table-column>-->
-                        <el-table-column
-                                align="center"
-                                prop="userName"
-                                label="昵称lll"
-                                width="100"
-                        >
-                        </el-table-column>
-                        <el-table-column
-                                align="center"
-                                prop="cellphone"
-                                label="联系方式"
-                                width="100"
-                        >
-                        </el-table-column>
-                        <!--<el-table-column
-                                align="center"
-                                prop="student.dept"
-                                label="学院班级/职位"
-                                :width="200"
-                                >
-                        </el-table-column>-->
-                        <el-table-column
-                                width="200"
-                                align="center"
-                                prop="email"
-                                label="邮箱"
-                        >
-                        </el-table-column>
-                        <el-table-column
-                                width="120"
-                                align="center"
-                                prop="userType"
-                                label="身份"
-
-                        >
-                        </el-table-column>
-                        <el-table-column label="操作" align="center">
-                            <template scope="props">
-                                <el-button type="text">查看</el-button>
-                                <!--<el-button v-if="props.row.userType == 3 || props.row.userType == 4 " type="text"
-                                           @click.stop="onAuth(props.row)">认证
-
-                                </el-button>-->
-                                <el-button type="text">冻结</el-button>
-                                <el-button type="text">关闭</el-button>
-                                <el-button type="text">修改个人信息</el-button>
-
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </template>
-                <p>用户列表</p>
+                </el-form>-->
                 <el-table
-                        :data="userList"
+                        :data="taskList"
                         style="width: 100%">
                     <el-table-column type="expand">
                         <template scope="props">
@@ -119,7 +28,7 @@
                                     <p>班级：<span>{{ props.row.student.major }}</span></p>
                                 </template>
                                 <template v-else>
-                                    <p>教师号： <span>{{ props.row.teacher.tno }}</span></p>
+                                    <p>教师号： <span>{{ props.row.teacher.sno }}</span></p>
                                     <p>职务：<span>{{ props.row.teacher.dept }}</span></p>
                                 </template>
                             </div>
@@ -143,10 +52,18 @@
                     </el-table-column>-->
                     <el-table-column
                             align="center"
-                            prop="userName"
-                            label="昵称"
+                            label="真实姓名"
                             width="100"
                     >
+                        <template scope="props">
+                            <span v-if="props.row.userType === 1 || props.row.userType === 3">
+                                {{props.row.student.name}}
+                            </span>
+                            <span v-else="props.row.teacher">
+                                {{props.row.teacher.name}}
+                            </span>
+
+                        </template>
                     </el-table-column>
                     <el-table-column
                             align="center"
@@ -165,34 +82,22 @@
                     <el-table-column
                             width="120"
                             align="center"
-                            prop="email"
-                            label="邮箱"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                            width="120"
-                            align="center"
                             prop="userType"
-                            label="身份"
+                            label="是否实名认证"
+                            :formatter="formatStatus"
                     >
                     </el-table-column>
-
                     <el-table-column label="操作" align="center">
                         <template scope="props">
-                            <el-button type="text">查看</el-button>
-                            <!--<el-button v-if="props.row.userType == 3 || props.row.userType == 4 " type="text"
+                            <el-button type="text"
                                        @click.stop="onAuth(props.row)">认证
-                            </el-button>-->
-                            <el-button type="text">冻结</el-button>
-                            <el-button type="text">关闭</el-button>
-                            <el-button type="text">修改个人信息</el-button>
-
+                            </el-button>
                         </template>
                     </el-table-column>
 
 
                 </el-table>
-                <!--<el-dialog title="实名认证" v-model="formVisible">
+                <el-dialog title="实名认证" v-model="formVisible">
                     <el-form :model="authForm" :inline="true">
                         <el-form-item label="处理结果">
                             <el-select v-model="authForm.auth" placeholder="请选择处理结果">
@@ -205,7 +110,7 @@
                         <el-button @click="formVisible = false">取 消</el-button>
                         <el-button type="primary" @click="onSubmit">确 定</el-button>
                     </div>
-                </el-dialog>-->
+                </el-dialog>
             </div>
         </wrap>
     </div>
@@ -316,60 +221,38 @@
             "remark": ""
           }
         }
-        ],
-        searchTableVisible:false
+        ]
       }
     },
     computed:{
       ...mapState({
-        userList:store=>store.user.userList,
-        userStep:store=>store.user.userStep,
-        userError:store=>store.user.userError,
-        searchList:store=>store.user.searchList,
-        searchStep:store=>store.user.searchStep,
-        searchError:store=>store.user.searchError,
-
+        taskList:store=>store.user.taskList,
+        authStep:store=>store.user.authStep,
+        authError:store=>store.user.authError,
       })
     },
     methods: {
       ...mapActions({
         userUpdate:UserType.A_USER_UPDATE,
-        userListStart:UserType.A_USER_LIST_START,
-        userSearch:UserType.A_USER_SEARCH,
-
+        userConfirmStart:UserType.A_USER_CONFIRM_START,
 
       }),
-      onSearch(){
-        let userName = this.formData.userName
-        let self = this
+      /*onSearch(){
+        let userId = this.formData.userId,
+          userName = this.formData.userName
 
         let query = {
+          userId,
           userName
         }
 
-        if (userName) {
+        if (userId || userName) {
           this.GM_routerPush({
             query
           })
-          this.userSearch({name:userName}).then(()=>{
-            if(self.searchStep === 'error'){
-              self.$message.error(self.searchError)
-            }else{
-              self.$message.success('获取成功')
-              self.searchTableVisible = true
-              console.log("搜索结果",self.searchList)
-            }
-          })
-        }else{
-          self.searchTableVisible = false
+          console.log("发送搜索请求 未实现")
         }
-      },
-      onClear(){
-        this.formData.userName = ''
-        this.GM_routerPush({})
-        this.searchTableVisible = false
-
-      },
+      },*/
       formatStatus(row) {
         switch (row.userType) {
           case 0:
@@ -396,12 +279,12 @@
       },
       onSubmit(){
         let self = this
-        if(parseInt(this.authForm.user) === 0 || parseInt(this.authForm.auth) === 1){
+        if(parseInt(this.authForm.auth) === 0 || parseInt(this.authForm.auth) === 1){
           this.userUpdate({userId:self.myUserId,auth:parseInt(self.authForm.auth)}).then(()=>{
             self.formVisible = false
             if(self.authStep !== 'error'){
               if(parseInt(this.authForm.auth) === 0){
-                self.userListStart()
+                self.userConfirmStart()
                 self.$message.success("操作成功，认证不通过")
               }else{
                 self.$message.success("操作成功，认证通过")
@@ -414,9 +297,6 @@
           self.$message.info("请选择处理结果")
         }
       }
-    },
-    mounted(){
-      this.onSearch()
     },
     components: {
       Wrap

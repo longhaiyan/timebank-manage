@@ -16,9 +16,7 @@
                                 <el-form-item label="充值原因">
                                     <el-input v-model="rechargeForm.result"></el-input>
                                 </el-form-item>
-                                <el-form-item label="充值成功后发送的系统消息内容">
-                                    <el-input type="textarea" v-model="rechargeForm.message"></el-input>
-                                </el-form-item>
+
                                 <el-form-item>
                                     <el-checkbox-group v-model="rechargeForm.check">
                                         <el-checkbox label="我已确认信息无误"></el-checkbox>
@@ -43,9 +41,6 @@
                             </el-form-item>
                             <el-form-item label="扣除原因">
                                 <el-input v-model="deductForm.result"></el-input>
-                            </el-form-item>
-                            <el-form-item label="扣除成功后发送的系统消息内容">
-                                <el-input type="textarea" v-model="deductForm.message"></el-input>
                             </el-form-item>
                             <el-form-item>
                                 <el-checkbox-group v-model="deductForm.check">

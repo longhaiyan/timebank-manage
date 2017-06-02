@@ -1,0 +1,16 @@
+{
+  "data": {
+    "userId": 6,
+    "userName": "haiyan",
+    "avatarId": 0,
+    "cellphone": "",
+    "sex": 0,
+    "userType": 0,
+    "description": "",
+    "email": "haiyan@bank.cn",
+    "birthday": "1970-01-01 00:00:00",
+    "student": null,
+    "teacher": null,
+    "pics": null
+  }
+}

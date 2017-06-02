@@ -1,5 +1,12 @@
 export default {
   taskList:[],
   authStep:'',
-  authError:''
+  authError:'',
+  userList:[],
+  userStep:'',
+  userError:'',
+  searchList:[],
+  searchStep:'',
+  searchError:'',
+
 }

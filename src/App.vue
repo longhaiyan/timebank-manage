@@ -7,6 +7,7 @@
                     <el-submenu index="user">
                         <template slot="title">用户信息管理</template>
                         <el-menu-item index="/user/list">账号管理</el-menu-item>
+                        <el-menu-item index="/user/confirm">实名认证</el-menu-item>
                         <el-menu-item index="/user/account">账户管理</el-menu-item>
                     </el-submenu>
                     <el-submenu index="task">

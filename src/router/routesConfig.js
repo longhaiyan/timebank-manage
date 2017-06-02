@@ -30,6 +30,7 @@ import WatchTopic from '@/views/topic/watch_topic'
 
 import UserIndex from '@/views/user/index'
 import Account from '@/views/user/account'
+import ConfirmSys from '@/views/user/confirm'
 import User from '@/views/user/user'
 
 import Credit from '@/views/credit/credit'
@@ -65,6 +66,10 @@ let routes = [
         path: 'account',
         component: Account,
       },
+      {
+        path:'confirm',
+        component:ConfirmSys
+      }
     ],
   },
   {

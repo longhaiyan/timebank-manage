@@ -1,0 +1,105 @@
+{
+  "data": [
+    {
+      "userId": 7,
+      "userName": "bank",
+      "avatarId": 0,
+      "cellphone": "",
+      "sex": 0,
+      "userType": 0,
+      "description": "",
+      "email": "test@bank.cn",
+      "birthday": "1970-01-01 00:00:00",
+      "student": null,
+      "teacher": null,
+      "pics": null
+    },
+    {
+      "userId": 6,
+      "userName": "haiyan",
+      "avatarId": 0,
+      "cellphone": "",
+      "sex": 0,
+      "userType": 0,
+      "description": "",
+      "email": "haiyan@bank.cn",
+      "birthday": "1970-01-01 00:00:00",
+      "student": null,
+      "teacher": null,
+      "pics": null
+    },
+    {
+      "userId": 5,
+      "userName": "hiayan",
+      "avatarId": 0,
+      "cellphone": "",
+      "sex": 0,
+      "userType": 0,
+      "description": "",
+      "email": "hiayan@bank.cn",
+      "birthday": "1970-01-01 00:00:00",
+      "student": null,
+      "teacher": null,
+      "pics": null
+    },
+    {
+      "userId": 4,
+      "userName": "yangyang",
+      "avatarId": 0,
+      "cellphone": "",
+      "sex": 0,
+      "userType": 0,
+      "description": "",
+      "email": "yangyang@bank.cn",
+      "birthday": "1970-01-01 00:00:00",
+      "student": null,
+      "teacher": null,
+      "pics": null
+    },
+    {
+      "userId": 3,
+      "userName": "xingmei",
+      "avatarId": 0,
+      "cellphone": "",
+      "sex": 0,
+      "userType": 4,
+      "description": "",
+      "email": "xingmei@bank.cn",
+      "birthday": "1970-01-01 00:00:00",
+      "student": null,
+      "teacher": {
+        "id": 2,
+        "createTime": "2017-05-29 01:11:08",
+        "modifyTime": "2017-05-29 01:11:08",
+        "tno": "324324324",
+        "name": "杨新梅",
+        "dept": "教授",
+        "remark": ""
+      },
+      "pics": null
+    },
+    {
+      "userId": 2,
+      "userName": "long",
+      "avatarId": 0,
+      "cellphone": "",
+      "sex": 0,
+      "userType": 1,
+      "description": "",
+      "email": "long@bank.cn",
+      "birthday": "1970-01-01 00:00:00",
+      "student": {
+        "id": 1,
+        "createTime": "2017-05-29 01:05:34",
+        "modifyTime": "2017-05-29 01:05:34",
+        "sno": "2013213484",
+        "name": "龙海燕",
+        "dept": "管理学院",
+        "major": "信管13-2班",
+        "remark": ""
+      },
+      "teacher": null,
+      "pics": null
+    }
+  ]
+}
