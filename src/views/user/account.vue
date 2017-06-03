@@ -14,7 +14,7 @@
                                     <el-input-number v-model="rechargeForm.count"></el-input-number>
 
                                 </el-form-item>
-                                <el-form-item label="充值原因" prop="result">
+                                <el-form-item label="备注" prop="result">
                                     <el-input v-model="rechargeForm.result"></el-input>
                                 </el-form-item>
 
@@ -33,14 +33,14 @@
 
                     <el-tab-pane>
                         <span slot="label"><i class="el-icon-date"></i> 扣除时间币</span>
-                        <el-form ref="deductForm" :model="deductForm" label-width="130px">
-                            <el-form-item label="账号ID">
+                        <el-form ref="deductForm" :rules="deductFormRules" :model="deductForm" label-width="130px">
+                            <el-form-item label="账号ID" prop="userId">
                                 <el-input v-model="deductForm.userId"></el-input>
                             </el-form-item>
-                            <el-form-item label="扣除时间币个数">
+                            <el-form-item label="扣除时间币个数" prop="count">
                                 <el-input v-model="deductForm.count"></el-input>
                             </el-form-item>
-                            <el-form-item label="扣除原因">
+                            <el-form-item label="备注" prop="result">
                                 <el-input v-model="deductForm.result"></el-input>
                             </el-form-item>
                             <el-form-item>
@@ -51,7 +51,7 @@
 
                         </el-form>
                         <div style="text-align: center;">
-                            <el-button type="primary">确认扣除</el-button>
+                            <el-button type="primary" @click.stop="onDeduct">确认扣除</el-button>
                         </div>
                       </el-tab-pane>
                     <el-tab-pane>
@@ -62,7 +62,7 @@
                                 style="width: 100%">
                             <el-table-column type="expand">
                                 <template scope="props">
-                                    <p>原因：{{props.row.result}}</p>
+                                    <p>备注：{{props.row.result}}</p>
                                 </template>
                             </el-table-column>
                             <el-table-column
@@ -123,9 +123,24 @@
             validator: this.checkMoney,
             trigger: 'blur,change'
           },
-          result: {required: true, message: '请输入用充值原因', trigger: 'blur'},
+          result: {required: true, message: '请输入备注', trigger: 'blur'},
 
         },
+        deductFormRules:{
+          userId: {
+            required: true,
+            validator: this.checkUserId,
+            trigger: 'blur'
+          },
+          count: {
+            required: true,
+            validator: this.checkMoney,
+            trigger: 'blur,change'
+          },
+          result: {required: true, message: '请输入备注', trigger: 'blur'},
+
+        },
+
         rechargeForm:{
           userId: this.$route.query.userId || '',
           count:'1',
@@ -216,6 +231,7 @@
               userId:parseInt(self.rechargeForm.userId),
               money:parseInt(self.rechargeForm.count),
               remark:self.rechargeForm.result,
+              type:1
             }).then(()=>{
               if(self.chargeStep === 'error'){
                 self.$message.error(self.chargeError)
@@ -229,6 +245,29 @@
           }
         })
       },
+      onDeduct(){
+        let self = this
+        self.$refs.deductForm.validate(value => {
+          if(value && self.deductForm.check){
+            this.deductMoney({
+              userId:parseInt(self.deductForm.userId),
+              money:parseInt(self.deductForm.count),
+              remark:self.deductForm.result,
+              type:2
+            }).then(()=>{
+              if(self.deductStep === 'error'){
+                self.$message.error(self.deductError)
+              }else {
+                self.$message.success('扣除成功')
+              }
+            })
+          }else{
+            self.$message.warning('请确认信息')
+            console.log("不符合扣除条件")
+          }
+        })
+      },
+
       checkMoney(rule, value, callback){
         if (parseInt(value) < 1) {
           return callback(new Error('请输入大于1的整数'))
