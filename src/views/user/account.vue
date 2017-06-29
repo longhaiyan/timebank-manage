@@ -164,27 +164,9 @@
             type:0,
             result:'社团活动需要',
             createTime:'2017-5-2 12:00',
-            admin:'long',
+            admin:'timebank',
             status:0,
-          },
-          {
-            userId:1,
-            name:'龙海燕',
-            type:0,
-            result:'社团活动需要',
-            createTime:'2017-5-2 12:00',
-            admin:'long',
-            status:0,
-          },
-          {
-            userId:1,
-            name:'龙海燕',
-            type:0,
-            result:'社团活动需要',
-            createTime:'2017-5-2 12:00',
-            admin:'long',
-            status:0,
-          },
+          }
 
         ]
       }

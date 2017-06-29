@@ -14,13 +14,13 @@
                         <template slot="title">任务管理</template>
                         <el-menu-item index="/task/recommend">推荐任务</el-menu-item>
                         <el-menu-item index="/task/report">举报任务</el-menu-item>
-                        <el-menu-item index="/task/watch">任务监督</el-menu-item>
+                        <!--<el-menu-item index="/task/watch">任务监督</el-menu-item>-->
                     </el-submenu>
                     <el-submenu index="topic">
                         <template slot="title">帖子管理</template>
                         <el-menu-item index="/topic/recommend">帖子置顶</el-menu-item>
                         <el-menu-item index="/topic/report">举报帖子</el-menu-item>
-                        <el-menu-item index="/topic/watch">帖子监督</el-menu-item>
+                        <!--<el-menu-item index="/topic/watch">帖子监督</el-menu-item>-->
                     </el-submenu>
                     <el-submenu index="sys">
                         <template slot="title">展示信息管理</template>
@@ -53,7 +53,7 @@
     name: 'app',
     data(){
       return {
-        userName:'管理员-龙海燕'
+        userName:'管理员-timebank'
       }
     },
     computed: {},

@@ -92,10 +92,10 @@
             disputeId: 1,
             userName: 'lala',
             phone:'13505618325',
-            beReportName:'某人',
+            beReportName:'long',
             status: 0,
 
-            admin: 'long',
+            admin: 'timebank',
             createTime: "2017-5-10 12:00",
             result: '删除'
 

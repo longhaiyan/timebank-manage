@@ -174,6 +174,7 @@
                             align="center"
                             prop="userType"
                             label="身份"
+                            :formatter="formatStatus"
                     >
                     </el-table-column>
 

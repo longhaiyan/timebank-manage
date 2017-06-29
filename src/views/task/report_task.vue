@@ -97,7 +97,7 @@
             title: '来我店里买东西有大优惠啦',
             reportCount: 3,
             status: 0,
-            admin: 'long',
+            admin: 'timebank',
             createTime: "2017-5-10 12:00",
             reason: '情况属实',
             result: '删除'

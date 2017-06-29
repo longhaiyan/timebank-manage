@@ -5,7 +5,7 @@
 </style>
 <template>
     <div>
-        <wrap title="用户管理">
+        <wrap title="实名认证">
             <div slot="content">
                 <!--<el-form :inline="true">
                     <el-form-item>
@@ -28,7 +28,7 @@
                                     <p>班级：<span>{{ props.row.student.major }}</span></p>
                                 </template>
                                 <template v-else>
-                                    <p>教师号： <span>{{ props.row.teacher.sno }}</span></p>
+                                    <p>教师号： <span>{{ props.row.teacher.tno }}</span></p>
                                     <p>职务：<span>{{ props.row.teacher.dept }}</span></p>
                                 </template>
                             </div>
@@ -65,13 +65,13 @@
 
                         </template>
                     </el-table-column>
-                    <el-table-column
+                    <!--<el-table-column
                             align="center"
                             prop="cellphone"
                             label="联系方式"
                             width="100"
                     >
-                    </el-table-column>
+                    </el-table-column>-->
                     <!--<el-table-column
                             align="center"
                             prop="student.dept"
@@ -83,7 +83,7 @@
                             width="120"
                             align="center"
                             prop="userType"
-                            label="是否实名认证"
+                            label="状态"
                             :formatter="formatStatus"
                     >
                     </el-table-column>
@@ -284,9 +284,9 @@
             self.formVisible = false
             if(self.authStep !== 'error'){
               if(parseInt(this.authForm.auth) === 0){
-                self.userConfirmStart()
                 self.$message.success("操作成功，认证不通过")
               }else{
+                self.userConfirmStart()
                 self.$message.success("操作成功，认证通过")
               }
             }else{

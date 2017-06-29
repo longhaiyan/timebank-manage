@@ -74,7 +74,7 @@
           {
             message: "对不起，您已违规操作！系统已经冻结您的账户，在冻结期间，您将无法参与线上的任何活动",
             userName: 'long',
-            sysName: 'long',
+            sysName: 'timebank',
             status:'发送成功',
             createTime:'2017-05-19  15:38:23'
           }
